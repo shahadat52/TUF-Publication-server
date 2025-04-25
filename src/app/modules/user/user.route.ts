@@ -13,6 +13,11 @@ router.get(
     userControllers.getAllUsers
 );
 
+router.get(
+    '/:id',
+    userControllers.getSingleUser
+);
+
 router.post(
     '/login',
     userControllers.loginUser

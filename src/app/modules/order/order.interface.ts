@@ -10,6 +10,8 @@ export type TProducts = {
 
 export type TOrder = {
     branchName: string;
+    email: string
+    invoice: number;
     address: string;
     products: [TProducts];
     totalPrice: number;

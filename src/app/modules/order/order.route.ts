@@ -19,13 +19,38 @@ router.get(
 );
 router.put(
     '/:orderId',
-    orderControllers.updateSingleOrder
+    orderControllers.updateOrderStatus
 );
 
 router.get(
-    '/myOrders/:branchName',
+    '/myOrders/:email',
     orderControllers.getMyOrders
 );
+
+router.get(
+    '/lastOrder/invoice',
+    orderControllers.lastOrder
+);
+
+router.get(
+    '/specific/product/order',
+    orderControllers.getSpecificProductOrder
+);
+
+router.get(
+    '/delivery/pending/products',
+    orderControllers.getDeliveryPendingProducts
+);
+
+router.patch(
+    '/toggle-status/:id',
+    orderControllers.updateDeliveryStatus
+);
+
+router.get(
+    '/annual/prize',
+    orderControllers.getAnnualPrizeOrders
+)
 
 
 export const OrderRoutes = router;

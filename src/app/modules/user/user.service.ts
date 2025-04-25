@@ -37,8 +37,8 @@ const getAllUsersFromDb = async (query: Record<string, unknown>) => {
     return result
 };
 
-const getSingleUserById = async (id: string) => {
-    const result = await UserModel.findById(id);
+const getSingleUserById = async (id: any) => {
+    const result = await UserModel.findOne({ email: id });
     return result
 };
 

@@ -7,14 +7,23 @@ const productSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is Required'],
+        trim: true
     },
     category: {
         type: String,
         required: [true, 'Category is Required'],
+        trim: true
+    },
+
+    deliveryStatus: {
+        type: String,
+        default: 'pending',
+        enum: ['pending', 'approved'],
     },
     productId: {
         type: String,
         required: [true, 'ProductId is Required'],
+        trim: true
     },
     price: {
         type: Number,
@@ -35,11 +44,22 @@ const orderSchema = new Schema<TOrder>({
     branchName: {
         type: String,
         required: true,
+        trim: true
     },
-
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        trim: true
+    },
+    invoice: {
+        type: Number,
+        required: [true, 'Invoice number is required'],
+        trim: true
+    },
     address: {
         type: String,
         required: true,
+        trim: true
     },
     products: {
         type: [productSchema],

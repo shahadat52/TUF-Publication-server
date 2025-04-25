@@ -17,7 +17,7 @@ const getAllProductsFromDb = async (query: Record<string, unknown>) => {
 
     if (query.searchTerm) {
         const searchQuery = await ProductModel.find({
-            $or: ['name', 'category'].map(
+            $or: ['name', 'category', 'productId'].map(
                 (field) => ({
                     [field]: { $regex: searchTerm, $options: 'i' },
                 }),

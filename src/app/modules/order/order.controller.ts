@@ -16,8 +16,9 @@ const placeOrder = catchAsync(async (req, res) => {
 
 
 const getAllOrders = catchAsync(async (req, res) => {
+    const query = req.query;
 
-    const result = await orderServices.getAllOrdersFromDB();
+    const result = await orderServices.getAllOrdersFromDB(query);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -38,10 +39,10 @@ const getSingleOrder = catchAsync(async (req, res) => {
     });
 });
 
-const updateSingleOrder = catchAsync(async (req, res) => {
+const updateOrderStatus = catchAsync(async (req, res) => {
     const { orderId } = req.params;
 
-    const result = await orderServices.updateSingleOrderById(orderId);
+    const result = await orderServices.updateOrderStatusById(orderId);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -51,10 +52,9 @@ const updateSingleOrder = catchAsync(async (req, res) => {
 });
 
 const getMyOrders = catchAsync(async (req, res) => {
-    const { branchName } = req.params;
-    console.log(branchName);
+    const { email } = req.params;
 
-    const result = await orderServices.getMyOrdersFromDB(branchName);
+    const result = await orderServices.getMyOrdersFromDB(email);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -63,10 +63,75 @@ const getMyOrders = catchAsync(async (req, res) => {
     });
 });
 
+const lastOrder = catchAsync(async (req, res) => {
+
+    const result = await orderServices.lastOrderFromDB()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'last order Retrieved successfully',
+        data: result,
+    });
+});
+
+const getSpecificProductOrder = catchAsync(async (req, res) => {
+    const productId = req.query;
+    const result = await orderServices.getSpecificProductOrderFromDB(productId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'specific order data Retrieved successfully',
+        data: result,
+    });
+});
+
+const getDeliveryPendingProducts = catchAsync(async (req, res) => {
+
+    const result = await orderServices.getDeliveryPendingProductsFromDB();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Delivery pending products retrieved successfully',
+        data: result,
+    })
+
+
+});
+
+const updateDeliveryStatus = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const { newStatus } = req.body;
+    const result = await orderServices.updateDeliveryStatusInDB(id, newStatus);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Delivery status updated successfully',
+        data: result,
+    });
+
+})
+
+const getAnnualPrizeOrders = catchAsync(async (req, res) => {
+    const result = await orderServices.getAnnualPrizeOrdersFromDB();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Annual prize data retrieved successfully',
+        data: result,
+    })
+})
+
+
+
 export const orderControllers = {
     placeOrder,
     getAllOrders,
     getSingleOrder,
-    updateSingleOrder,
-    getMyOrders
+    updateOrderStatus,
+    getMyOrders,
+    lastOrder,
+    getSpecificProductOrder,
+    getDeliveryPendingProducts,
+    updateDeliveryStatus,
+    getAnnualPrizeOrders
 }
